@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-
-const CourseButton = ({title}) => {
+// add Link component
+// How do I know which course page I am on? I did a course with that for Programmer courses. Rewatch
+const CourseButton = ({title, id}) => {
   return(
     <div className="grid-33">
-      <a className="course--module course--link" href="course-detail.html">
+      <a className="course--module course--link" href={`/courses/${id}`}>
       <h4 className="course--label">Course</h4>
       <h3 className="course--title">{title}</h3>
       </a>
@@ -18,11 +19,12 @@ class Courses extends Component {
   constructor() { //What does a constructor do again?
     super(); // ?
     this.state = {
-      courseTitles: []
+      courseTitles: [],
+      courseIds: [],
       };
   } 
 
-  componentDidMount() {
+  componentWillMount() {
     this.getCourseTitles();
   }
 
@@ -31,9 +33,11 @@ class Courses extends Component {
       .then(response => response.json())
       .then(response => {
         let courseTitles = [];
+        let courseIds = [];
         let i;
         for(i=0; i < response.length; i++) {
-          courseTitles.push(response[i].title)
+          courseTitles.push(response[i].title);
+          courseIds.push(response[i].id)
         }
         this.setState({courseTitles: courseTitles})
         console.log(courseTitles);
@@ -45,8 +49,14 @@ class Courses extends Component {
 
 
   render() {
+
     const { courseTitles } = this.state;
-    const courseButtons = courseTitles.map(courseTitle => <CourseButton title={courseTitle}/>);
+    const { courseIds } = this.state;
+    const courseButtons = courseTitles.map(courseTitle => <CourseButton title={courseTitle}/>); // Each child should hava a uniquie "key" prop
+    /*for(i=0; i < courseTitles.length; i++) {
+      <CourseButton title={courseTitles[i]} id={courseIds[i] key={i}}
+    }*/
+    
     return(
       <div>
         {courseButtons}

@@ -18,10 +18,7 @@ import UserSignIn from './components/UserSignIn';
 //import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 
-const courses = fetch("http://localhost:5000/api/courses");
-
 class App extends Component {
- 
 
   render() {
     return (
