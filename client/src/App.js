@@ -18,6 +18,13 @@ import UserSignIn from './components/UserSignIn';
 //import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 
+//Context
+import withContext from "./Context";
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+
+
+
 class App extends Component {
 
   render() {
@@ -30,10 +37,12 @@ class App extends Component {
         <Route path="/courses/create" component={CreateCourse} />
         <Route path="/courses/:id/update" component={UpdateCourse} />
         <Route path="/courses/:id" component={CourseDetail} />
-        <Route path="/signin" component={UserSignIn} />
-        <Route path="/signup" component={UserSignUp} />
+        <Route path="/signin" component={UserSignInWithContext} />
+        <Route path="/signup" component={UserSignUpWithContext} />
 {/*        <Route path="/signout" component={UserSignOut} />
-*/}      </Switch>
+*/}   {/*error, notfound, forbidden!!!*/}
+
+    </Switch>
     </Router>
   );
   }
