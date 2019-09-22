@@ -29,7 +29,7 @@ router.post("/", [
     .exists()
     .withMessage('Please provide a value for "emailAddress"')
     .isEmail()
-  	.withMessage('Please provide a valid email address for "emailAddress"'),
+  	.withMessage('Please provide a valid email address for "emailAddress"'), // Only this one gets through
   check('password')
     .exists()
     .withMessage('Please provide a value for "password"'),
