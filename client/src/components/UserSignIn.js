@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import Form from './Form';
 
 
-class UserSignIn extends Component {
+export default class UserSignIn extends Component {
 	state = {
-	    emailAddress: "",
-	    password: '',
-	    errors: [],
-	  }
+    emailAddress: "",
+    password: '',
+    errors: [],
+  }
 
 	render() {
 
@@ -64,11 +64,10 @@ class UserSignIn extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/authenticated' } }; //If a user submits the sign in form without previously visiting a protected route, they will navigate to /authenticated by default
+    const { from } = this.props.location.state || { from: { pathname: '/' } }; //If a user submits the sign in form without previously visiting a protected route, they will navigate to /authenticated by default
     const { emailAddress, password } = this.state;
-    context.actions.signIn(emailAddress, password) //Call the signIn() function, which you can access via the destructured context variable. In Context.js, you passed Context.Provider a value prop whose value was an object with an actions property. The signIn() function provided to the UserSignIn component is available via context.actions.signIn
-    // signIn() is an asynchronous operation that calls the getUser API method (written in Data.js) and returns a promise. The resolved value of the promise is either an object holding the authenticated user's name and username values (sent from the API if the response is 201), or null (if the response is a 401 Unauthorized HTTP status code). Be sure to have another look at the getUser() method in Data.js to review its inner-workings.
-      .then( user => {
+    context.actions.signIn(emailAddress, password) 
+      .then( user => { 
         if (user === null) {
           this.setState(() => {
             return { errors: ["Sign-in was unsuccessful"]};
@@ -88,4 +87,3 @@ class UserSignIn extends Component {
   }
 }
 
-export default UserSignIn;

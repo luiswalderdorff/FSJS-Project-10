@@ -42,8 +42,8 @@ export class Provider extends Component {
       this.setState(() => {
         return {
         authenticatedUser: user, // Otherwise, the authenticatedUser state will remain null.
-        }
-      })
+        };
+      });
       // Set cookie
       Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 }); // which name and value for cookie and in how many days the cookie expires
     }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './styles/global.css';
   
 
@@ -17,11 +16,13 @@ import UpdateCourse from './components/UpdateCourse';
 import UserSignIn from './components/UserSignIn';
 //import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
+import PrivateRoute from "./PrivateRoute";
 
 //Context
 import withContext from "./Context";
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const HeaderWithContext = withContext(Header);
 
 
 
@@ -30,7 +31,7 @@ class App extends Component {
   render() {
     return (
     <Router>
-      <Header />
+      <HeaderWithContext />
 
       <Switch>
         <Route exact path="/" component={Courses} />

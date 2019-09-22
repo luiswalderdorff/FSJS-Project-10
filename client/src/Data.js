@@ -2,7 +2,7 @@ import config from './config';
 
 export default class Data {
   // API function
-  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) { // why requiresAuth false? --> Because it is just a function and those are used, when nothing else is added. getUser function changes that
+  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) { 
     const url = config.apiBaseUrl + path;
   
     const options = {
@@ -17,21 +17,20 @@ export default class Data {
     }
 
     if (requiresAuth) {
-      const encodedCredentials = btoa(`${credentials.emailAdress}:${credentials.password}`); //function used to encode
-
+      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`); //function used to encode
       options.headers["Authorization"] = `Basic ${encodedCredentials}`; //adds crednetials th headers in options above // Basic because we are using basic authentication ex.: Authorization: Basic am9lQHNtaXRoLmNvbTpqb2U=
-
     }
 
     return fetch(url, options);
   }
   // getUser Function
   async getUser(emailAddress, password) { //uses emailAddress and password to see who the user is
-    const response = await this.api(`/users`, 'GET', null, true, {emailAddress, password});
+    const response = await this.api("/users", 'GET', null, true, {emailAddress, password}); // It stops here unless I change requiresAuth to false
     if (response.status === 200) {
       return response.json().then(data => data); //then return data
     }
     else if (response.status === 401) {
+      console.log("1");
       return null;
     }
     else {

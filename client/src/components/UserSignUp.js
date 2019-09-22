@@ -39,39 +39,43 @@ export default class UserSignUp extends Component {
                   type="text"
                   value={firstName} 
                   onChange={this.change} 
-                  placeholder="First Name" />
+                  placeholder="First Name"
+                  required />
                 <input 
                   id="lastName" 
                   name="lastName" 
                   type="text"
                   value={lastName} 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Last Name"
+                  required />
                 <input 
                   id="emailAddress" 
                   name="emailAddress"
                   type="text"
                   value={emailAddress} 
                   onChange={this.change} 
-                  placeholder="Email Address" />
+                  placeholder="Email Address"
+                  required />
                   <input 
                   id="password" 
                   name="password"
                   type="password"
                   value={password} 
                   onChange={this.change} 
-                  placeholder="Password" />
-                  <input 
+                  placeholder="Password"
+                  required />
+                  {/*<input 
                   id="confirmPassword" 
                   name="confirmPassword"
                   type="password"
-                  value={password} 
+                  value={confirm_password} 
                   onChange={this.change} 
-                  placeholder="Confirm Password" />
+                  placeholder="Confirm Password"
+                  required />*/}
               </React.Fragment>
             )} />
-{/*			        <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button></div>
-*/}			    </div>
+  		    </div>
 			    <p>&nbsp;</p>
 			    <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
 			  </div>
@@ -108,17 +112,17 @@ export default class UserSignUp extends Component {
       password,
     };
 
-    context.data.createUser(user) //Cannot read property "data" of undefined. Why is it undefined?
+    context.data.createUser(user) 
       .then( errors => {
-        if (errors.length) {
+        if (errors) { // Changed from errors.length to errors
           this.setState({ errors });
           console.log(errors);
         } else {
         	console.log(`${emailAddress} is successfully signed up and authenticated!`);
-          /*context.actions.signIn(emailAddress, password)
+          context.actions.signIn(emailAddress, password)
             .then(() => {
-              this.props.history.push("/authenticated");
-            })*/
+              this.props.history.push("/");
+            })
         }
       }).catch( err => {
         console.log(err);

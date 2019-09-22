@@ -1,9 +1,9 @@
-// stateless functional component ?? What comes here?
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-import React, {Component} from 'react';
-
-const UserSignOut = () => {
-		return()
+export default ({ context }) => { // = props.context
+  context.actions.signOut();
+  return (
+    <Redirect to="/" />
+  );
 }
-
-export default UserSignOut;
