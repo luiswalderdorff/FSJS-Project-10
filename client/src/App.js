@@ -14,7 +14,7 @@ import Courses from './components/Courses';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import UserSignIn from './components/UserSignIn';
-//import UserSignOut from './components/UserSignOut';
+import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 import PrivateRoute from "./PrivateRoute";
 
@@ -22,6 +22,7 @@ import PrivateRoute from "./PrivateRoute";
 import withContext from "./Context";
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 const HeaderWithContext = withContext(Header);
 
 
@@ -35,13 +36,13 @@ class App extends Component {
 
       <Switch>
         <Route exact path="/" component={Courses} />
-        <Route path="/courses/create" component={CreateCourse} />
-        <Route path="/courses/:id/update" component={UpdateCourse} />
+        <PrivateRoute path="/courses/create" component={CreateCourse} />
+        <PrivateRoute path="/courses/:id/update" component={UpdateCourse} />
         <Route path="/courses/:id" component={CourseDetail} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
-{/*        <Route path="/signout" component={UserSignOut} />
-*/}   {/*error, notfound, forbidden!!!*/}
+        <Route path="/signout" component={UserSignOutWithContext} />
+       {/*error, notfound, forbidden!!!*/}
 
     </Switch>
     </Router>

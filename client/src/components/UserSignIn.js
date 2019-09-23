@@ -73,7 +73,7 @@ export default class UserSignIn extends Component {
             return { errors: ["Sign-in was unsuccessful"]};
           });
         } else {
-          this.props.history.push(from); //The from variable passed to history.push(from) contains information about the pathname an unauthenticated user redirected from (via this.props.location.state). For example, if a user redirects to the sign up page from /settings, from will be equal to pathname: "/settings".
+          this.props.history.push(from); //The from variable passed to history.push(from) contains information about the pathname an unauthenticated user redirected "from" (via this.props.location.state). For example, if a user redirects to the sign up page from /settings, from will be equal to pathname: "/settings".
           console.log(`SUCCESS! ${emailAddress} is now signed in!`); // Same as in UserSignUp
         }
       }).catch( err => {

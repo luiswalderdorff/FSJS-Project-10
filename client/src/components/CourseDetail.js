@@ -35,8 +35,8 @@ class CourseDetail extends Component {
 	render() {
 
 		const { courseInfo, teacher } = this.state;
-
 		return(
+			/*{if authUser === courseInfo.userId}*/
 			<div>
 			  <div className="actions--bar">
 			    <div className="bounds">
