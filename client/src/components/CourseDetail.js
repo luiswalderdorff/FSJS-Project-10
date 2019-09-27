@@ -19,13 +19,12 @@ class CourseDetail extends Component {
 
   getCourseTitles = function() {
   	const paramId = this.props.match.params.id;
-  	console.log(paramId);
     fetch(`http://localhost:5000/api/courses/${paramId}`)
       .then(response => response.json())
       .then(response => {
-      	console.log(response);
       	const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
-        this.setState({courseInfo: response, teacher: teacherName})
+      	const teacherId = response.teacher.id;
+        this.setState({courseInfo: response, teacher: teacherName, teacherId: teacherId})
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
@@ -34,17 +33,35 @@ class CourseDetail extends Component {
 
 	render() {
 
-		const { courseInfo, teacher } = this.state;
+		const { courseInfo, teacher, teacherId } = this.state;
+		const { context } = this.props;
+		let userId; 
+		if (context.authenticatedUser) {
+			userId = context.authenticatedUser.id;
+		}
+		console.log(userId);
+		console.log(teacherId);
+
+
+		// if teacherId = what?
+
+		let buttons;
+
+		if (userId == teacherId) {
+			buttons = <span>
+			      			<Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
+			      			<Link className="button" to="#">Delete Course</Link>
+		      			</span>
+		}
+
+
 		return(
 			/*{if authUser === courseInfo.userId}*/
 			<div>
 			  <div className="actions--bar">
 			    <div className="bounds">
 			      <div className="grid-100">
-			      	<span>
-			      		<Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link> {/**/}
-			      		<Link className="button" to="#">Delete Course</Link>
-		      		</span>
+		      		{buttons}
 		      		<Link className="button button-secondary" to="/">Return to List</Link>
 	      		</div>
 			    </div>
