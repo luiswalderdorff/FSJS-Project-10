@@ -23,6 +23,7 @@ export default class Data {
 
     return fetch(url, options);
   }
+
   // getUser Function
   async getUser(emailAddress, password) { //uses emailAddress and password to see who the user is
     const response = await this.api("/users", 'GET', null, true, {emailAddress, password}); // It stops here unless I change requiresAuth to false
@@ -40,6 +41,36 @@ export default class Data {
   // createUser Function
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
+    if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  async updateCourse(course, paramId) {
+    const response = await this.api(`/courses/${paramId}`, "PUT", course);
+    if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  async createCourse(course) {
+    const response = await this.api("/courses", "POST", course);
     if (response.status === 201) {
       return [];
     }

@@ -20,18 +20,18 @@ router.get("/", authenticate, (req,res) => {
 
 router.post("/", [
   check("firstName")
-    .exists() 
+    .exists({checkFalsy: true}) 
     .withMessage('Please provide a value for "firstName"'),
   check('lastName')
-    .exists()
+    .exists({checkFalsy: true})
     .withMessage('Please provide a value for "lastName"'),
   check('emailAddress')
-    .exists()
+    .exists({checkFalsy: true})
     .withMessage('Please provide a value for "emailAddress"')
     .isEmail()
   	.withMessage('Please provide a valid email address for "emailAddress"'), // Only this one gets through
   check('password')
-    .exists()
+    .exists({checkFalsy: true})
     .withMessage('Please provide a value for "password"'),
 ], (req,res,next) => { 
   // Creates a user, sets the Location header to "/", and returns no content

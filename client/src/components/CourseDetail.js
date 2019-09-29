@@ -39,15 +39,10 @@ class CourseDetail extends Component {
 		if (context.authenticatedUser) {
 			userId = context.authenticatedUser.id;
 		}
-		console.log(userId);
-		console.log(teacherId);
-
-
-		// if teacherId = what?
 
 		let buttons;
 
-		if (userId == teacherId) {
+		if (userId === teacherId) {
 			buttons = <span>
 			      			<Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
 			      			<Link className="button" to="#">Delete Course</Link>

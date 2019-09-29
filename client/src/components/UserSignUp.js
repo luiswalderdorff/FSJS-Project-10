@@ -61,13 +61,12 @@ export default class UserSignUp extends Component {
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />
-                  {/*<input 
+                  <input 
                   id="confirmPassword" 
                   name="confirmPassword"
                   type="password"
-                  value={confirm_password} 
                   onChange={this.change} 
-                  placeholder="Confirm Password" />*/}
+                  placeholder="Confirm Password" />
               </React.Fragment>
             )} />
   		    </div>
@@ -107,6 +106,13 @@ export default class UserSignUp extends Component {
       password,
     };
 
+    // Password Confirmation
+
+    if (document.getElementById('password').value !==
+      document.getElementById('confirmPassword').value) {
+      return alert("Password confirmation failed");
+    } 
+
     context.data.createUser(user) 
       .then( errors => {
         if (errors) { // Changed from errors.length to errors
@@ -121,7 +127,7 @@ export default class UserSignUp extends Component {
         }
       }).catch( err => {
         console.log(err);
-        //this.props.history.push("/error"); //changes the current url //Need to create error component!!
+        this.props.history.push("/error"); //changes the current url //Need to create error component!!
       })
   }
   cancel = () => {
