@@ -26,24 +26,31 @@ class UpdateCourse extends Component {
     fetch(`http://localhost:5000/api/courses/${paramId}`)
       .then(response => response.json())
       .then(response => {
-      	const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
-        this.setState({courseInfo: response, teacher: teacherName, paramId: paramId})
+      	const { context } = this.props;
+      	if(response.teacher.id === context.authenticatedUser.id) {
+      		const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
+        	this.setState({description: response.description, teacher: teacherName, paramId: paramId, title: response.title, estimatedTime: response.estimatedTime, materialsNeeded: response.materialsNeeded})
+      	} else {
+      		this.props.history.push("/forbidden");
+      	}
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
+        const path = (error.name === 'notFound') ? "/notfound" : "/error";
+        this.props.history.push(path);  
       });
   }
 
 	render() {
-
-		const { courseInfo, teacher, errors } = this.state;
 
 		const {
       title,
       description,
       estimatedTime,
       materialsNeeded,
-    } = courseInfo;
+      teacher,
+      errors
+    } = this.state;
 
 		return(
 			<div className="bounds course--detail">
@@ -118,20 +125,19 @@ class UpdateCourse extends Component {
     // Update Course
     context.data.updateCourse(course, this.state.paramId, context.authenticatedUser.email, context.authenticatedUser.password)
       .then( errors => {
-        if (errors.length) { 
+        if (errors) { 
           this.setState({ errors });
-          console.log(errors);
         } else {
         	console.log(`You have successfully updated the course`);
           this.props.history.push(`/courses/${this.props.match.params.id}`);
         }
       }).catch( err => {
         console.log(err);
-        this.props.history.push("/error"); //changes the current url //Need to create error component!!
+        this.props.history.push("/error"); 
       })
   }
   cancel = () => {
-		this.props.history.push("/");
+		this.props.history.push(`/courses/${this.state.paramId}`);
 	}
 }
 

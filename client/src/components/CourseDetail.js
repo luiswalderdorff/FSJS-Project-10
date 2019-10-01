@@ -28,6 +28,8 @@ class CourseDetail extends Component {
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
+        const path = (error.name === 'notFound') ? "/notfound" : "/error";
+        this.props.history.push(path);  
       });
   }
 
@@ -41,7 +43,9 @@ class CourseDetail extends Component {
 		}
 
 		let buttons;
+		const ReactMarkdown = require('react-markdown/with-html');
 
+		/* Only shows update and delete buttons if user owns the course*/
 		if (userId === teacherId) {
 			buttons = <span>
 			      			<Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
@@ -51,7 +55,6 @@ class CourseDetail extends Component {
 
 
 		return(
-			/*{if authUser === courseInfo.userId}*/
 			<div>
 			  <div className="actions--bar">
 			    <div className="bounds">
@@ -69,7 +72,7 @@ class CourseDetail extends Component {
 							<p>By {teacher}</p>
 			      </div>
 			      <div className="course--description">
-			        <p>{courseInfo.description}</p>
+			        <ReactMarkdown source={courseInfo.description} />
 			      </div>
 			    </div>
 			    <div className="grid-25 grid-right">
@@ -82,7 +85,7 @@ class CourseDetail extends Component {
 			          <li className="course--stats--list--item">
 			            <h4>Materials Needed</h4>
 			            <ul>
-			              <li>{courseInfo.materialsNeeded}</li> {/* Maybe array, seperate at * and then for loop? Doesn't accept loop in here. How to write it? */}
+			              <ReactMarkdown source={courseInfo.materialsNeeded} />
 			            </ul>
 			          </li>
 			        </ul>
@@ -106,7 +109,7 @@ class CourseDetail extends Component {
         }
       }).catch( err => {
         console.log(err);
-        this.props.history.push("/error"); //changes the current url //Need to create error component!!
+        this.props.history.push("/error"); 
       })
 	}
 }

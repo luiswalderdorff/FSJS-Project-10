@@ -21,9 +21,9 @@ export default (props) => {
 
   return (
     <div>
-      <ErrorsDisplay errors={errors} />
+      <ErrorsDisplay errors={errors} /> {/*Displays all the returned errors*/}
       <form onSubmit={handleSubmit}>
-        {elements()}
+        {elements()} {/*Displays the form elements for the specific form*/}
           <div className="grid-100 pad-bottom">
             <button className="button" type="submit">{submitButtonText}</button>
             <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
@@ -32,11 +32,12 @@ export default (props) => {
     </div>
   );
 }
-
+/*Creates the ErrorDisplay component*/
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 
   if (errors.length) {
+    console.log(errors);
     errorsDisplay = (
       <div>
         <h2 className="validation--errors--label">Validation errors</h2>
