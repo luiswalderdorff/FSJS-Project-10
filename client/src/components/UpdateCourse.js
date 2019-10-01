@@ -29,7 +29,7 @@ class UpdateCourse extends Component {
       	const { context } = this.props;
       	if(response.teacher.id === context.authenticatedUser.id) {
       		const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
-        	this.setState({description: response.description, teacher: teacherName, paramId: paramId, title: response.title, estimatedTime: response.estimatedTime, materialsNeeded: response.materialsNeeded})
+        	this.setState({description: response.description, teacher: teacherName, teacherId: response.teacher.id, paramId: paramId, title: response.title, estimatedTime: response.estimatedTime, materialsNeeded: response.materialsNeeded})
       	} else {
       		this.props.history.push("/forbidden");
       	}
@@ -51,6 +51,8 @@ class UpdateCourse extends Component {
       teacher,
       errors
     } = this.state;
+
+    console.log(this.state);
 
 		return(
 			<div className="bounds course--detail">
@@ -112,6 +114,8 @@ class UpdateCourse extends Component {
       description,
       estimatedTime,
       materialsNeeded,
+      paramId,
+      teacherId
     } = this.state;
 
     // New user payload
@@ -120,6 +124,8 @@ class UpdateCourse extends Component {
       description,
       estimatedTime,
       materialsNeeded,
+      paramId,
+      teacherId
     };
 
     // Update Course
