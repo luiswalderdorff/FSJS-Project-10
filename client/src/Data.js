@@ -56,7 +56,7 @@ export default class Data {
   /* updateCourse Function */
   async updateCourse(course, paramId, emailAddress, password) {
     const response = await this.api(`/courses/${paramId}`, "PUT", course, true, {emailAddress, password});
-    if (response.status === 201) {
+    if (response.status === 204) {
       return [];
     }
     else if (response.status === 400) {
@@ -87,9 +87,9 @@ export default class Data {
   }
 
   /* deleteCourse Function */
-  async deleteCourse(emailAddress, password) {
-    const response = await this.api("/courses", "DELETE", null, true, {emailAddress, password});
-    if (response.status === 201) {
+  async deleteCourse(paramId, emailAddress, password) {
+    const response = await this.api(`/courses/${paramId}`, "DELETE", null, true, {emailAddress, password});
+    if (response.status === 204) {
       return [];
     }
     else if (response.status === 400) {
