@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import Form from "./Form";
 
 
@@ -37,15 +36,14 @@ class UpdateCourse extends Component {
 
 	render() {
 
-		const { courseInfo, teacher } = this.state;
+		const { courseInfo, teacher, errors } = this.state;
 
 		const {
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      errors,
-    } = this.state;
+    } = courseInfo;
 
 		return(
 			<div className="bounds course--detail">
@@ -61,11 +59,11 @@ class UpdateCourse extends Component {
                 <div className="grid-66">
 					        <div className="course--header">
 					          <h4 className="course--label">Course</h4>
-					          <div><input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..." defaultValue={courseInfo.title} value={title} onChange={this.change}  /></div>
+					          <div><input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..." value={title} onChange={this.change}  /></div>
 					          <p>By {teacher}</p>
 					        </div>
 					        <div className="course--description">
-					          <div><textarea id="description" name="description" placeholder="Course description..." defaultValue={courseInfo.description} value={description} onChange={this.change}  /></div>
+					          <div><textarea id="description" name="description" placeholder="Course description..." value={description} onChange={this.change}  /></div>
 					        </div>
 					      </div>
 					      <div className="grid-25 grid-right">
@@ -73,11 +71,11 @@ class UpdateCourse extends Component {
 					          <ul className="course--stats--list">
 					            <li className="course--stats--list--item">
 					              <h4>Estimated Time</h4>
-					              <div><input id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder="Hours" defaultValue={courseInfo.estimatedTime} value={estimatedTime} onChange={this.change}  /></div>
+					              <div><input id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder="Hours" value={estimatedTime} onChange={this.change}  /></div>
 					            </li>
 					            <li className="course--stats--list--item">
 					              <h4>Materials Needed</h4>
-					              <div><textarea id="materialsNeeded" name="materialsNeeded" placeholder="List materials..." defaultValue={courseInfo.materialsNeeded} value={materialsNeeded} onChange={this.change}  /></div>
+					              <div><textarea id="materialsNeeded" name="materialsNeeded" placeholder="List materials..." value={materialsNeeded} onChange={this.change}  /></div>
 					            </li>
 					          </ul>
 					        </div>
@@ -118,9 +116,9 @@ class UpdateCourse extends Component {
     };
 
     // Update Course
-    context.data.updateCourse(course, this.state.paramId) //??
+    context.data.updateCourse(course, this.state.paramId, context.authenticatedUser.email, context.authenticatedUser.password)
       .then( errors => {
-        if (errors) { // Changed from errors.length to errors
+        if (errors.length) { 
           this.setState({ errors });
           console.log(errors);
         } else {

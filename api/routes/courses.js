@@ -14,10 +14,10 @@ const User = require("../models").User;
 
 const courseValidation = [
   check('title')
-    .exists() 
+    .exists({checkFalsy: true}) 
     .withMessage('Please provide a value for "title"'),
   check('description')
-    .exists()
+    .exists({checkFalsy: true})
     .withMessage('Please provide a value for "description"'),
 ];
 

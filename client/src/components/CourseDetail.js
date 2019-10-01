@@ -45,7 +45,7 @@ class CourseDetail extends Component {
 		if (userId === teacherId) {
 			buttons = <span>
 			      			<Link className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
-			      			<Link className="button" to="#">Delete Course</Link>
+			      			<Link className="button" to="#"><span onClick={this.deleteCourse}>Delete Course</span></Link>
 		      			</span>
 		}
 
@@ -91,6 +91,23 @@ class CourseDetail extends Component {
 			  </div>
 			</div>
 		)
+	}
+
+	deleteCourse = () => {
+		const { context } = this.props;
+		context.data.deleteCourse(this.state.paramId, context.authenticatedUser.email, context.authenticatedUser.password)
+      .then( errors => {
+        if (errors.length) { 
+          this.setState({ errors });
+          console.log(errors);
+        } else {
+        	console.log(`You have successfully deleted the course`);
+          this.props.history.push(`/`);
+        }
+      }).catch( err => {
+        console.log(err);
+        this.props.history.push("/error"); //changes the current url //Need to create error component!!
+      })
 	}
 }
 

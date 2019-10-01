@@ -46,21 +46,22 @@ class Courses extends Component {
 
   render() {
     const { courseInfo } = this.state;
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
     const courseButtons = courseInfo.map(info => <CourseButton title={info.courseTitle} id={info.courseId} key={info.courseId}/>); // Each child should hava a uniquie "key" prop
-    /*for(i=0; i < courseTitles.length; i++) {
-      <CourseButton title={courseTitles[i]} id={courseIds[i] key={i}}
-    }*/
     
     return(
       <div>
         {courseButtons}
-        <div className="grid-33">
-          <Link className="course--module course--add--module" to="/courses/create">
-            <h3 className="course--add--title"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 13 13" className="add">
-                <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 " />
-              </svg>New Course</h3>
-          </Link>
-        </div>
+        {authUser ? 
+          <div className="grid-33">
+            <Link className="course--module course--add--module" to="/courses/create">
+              <h3 className="course--add--title"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 13 13" className="add">
+                  <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 " />
+                </svg>New Course</h3>
+            </Link>
+          </div>
+        : <div></div>}
       </div>  
     )
   }
