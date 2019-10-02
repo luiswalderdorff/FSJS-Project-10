@@ -60,7 +60,8 @@ router.get("/:id", (req,res,next) => { //200
       res.json(course).status(200).end();
     } else {
       const err = new Error("This course does not exist");
-      res.status(400).json({message: "This course doesn't exist"});
+      err.status = 400;
+      //res.status(400).json({message: "This course doesn't exist"});
       next(err);
     }
   })

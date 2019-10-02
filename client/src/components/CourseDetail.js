@@ -22,9 +22,13 @@ class CourseDetail extends Component {
     fetch(`http://localhost:5000/api/courses/${paramId}`)
       .then(response => response.json())
       .then(response => {
-      	const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
-      	const teacherId = response.teacher.id;
-        this.setState({courseInfo: response, teacher: teacherName, teacherId: teacherId})
+      	if (response.teacher) {
+      		const teacherName = `${response.teacher.firstName} ${response.teacher.lastName}`;
+	      	const teacherId = response.teacher.id;
+	        this.setState({courseInfo: response, teacher: teacherName, teacherId: teacherId})
+      	} else {
+      		this.props.history.push("/notfound");
+      	}
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
