@@ -122,15 +122,15 @@ router.put("/:id", [authenticate, courseValidation], (req,res, next) => {
       console.log("The UserId is: " + course.userId);
       if(course.userId !== req.currentUser.id) {
         const err = new Error('You are not allowed to edit this course');
-        //res.json({message: "You are not allowed to edit this course"}); // Don't do this. It ends the response, can't add status or something
         err.status = 403;
+        //res.status(403).json({message: "You are not allowed to edit this course"}); // Don't do this. It ends the response, can't add status or something
         next(err);
       } else if (course) {
         course.update(newInfo);
       } else {
         const err = new Error('This course does not exist');
-        //res.json({message: "This course does not exist"});
         err.status = 403;
+        //res.status(403).json({message: "This course does not exist"});
         next(err);
       }
     }).then(() => {

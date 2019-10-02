@@ -52,8 +52,6 @@ class UpdateCourse extends Component {
       errors
     } = this.state;
 
-    console.log(this.state);
-
 		return(
 			<div className="bounds course--detail">
 			  <h1>Update Course</h1>
@@ -127,6 +125,8 @@ class UpdateCourse extends Component {
       paramId,
       teacherId
     };
+
+    console.log(this.state.paramId + "11111")
 
     // Update Course
     context.data.updateCourse(course, this.state.paramId, context.authenticatedUser.email, context.authenticatedUser.password)

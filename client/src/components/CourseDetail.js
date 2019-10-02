@@ -100,9 +100,9 @@ class CourseDetail extends Component {
 		const { context } = this.props;
 		context.data.deleteCourse(this.props.match.params.id, context.authenticatedUser.email, context.authenticatedUser.password)
       .then( errors => {
-        if (errors) { 
+        if (errors.length) { 
           this.setState({ errors });
-          console.log(errors);
+          console.log(errors + "+++++");
         } else {
         	console.log(`You have successfully deleted the course`);
           this.props.history.push(`/`);
