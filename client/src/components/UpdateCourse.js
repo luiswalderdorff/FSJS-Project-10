@@ -116,22 +116,23 @@ class UpdateCourse extends Component {
       teacherId
     } = this.state;
 
+    const id = paramId;
+    const userId = teacherId;
+
     // New user payload
     const course = {
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      paramId,
-      teacherId
+      id,
+      userId
     };
 
-    console.log(this.state.paramId + "11111")
-
     // Update Course
-    context.data.updateCourse(course, this.state.paramId, context.authenticatedUser.email, context.authenticatedUser.password)
+    context.data.updateCourse(course, this.props.match.params.id, context.authenticatedUser.email, context.authenticatedUser.password)
       .then( errors => {
-        if (errors) { 
+        if (errors.length) { 
           this.setState({ errors });
         } else {
         	console.log(`You have successfully updated the course`);
