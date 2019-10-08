@@ -26,7 +26,7 @@ export default class Data {
 
   // getUser Function
   async getUser(emailAddress, password) { //uses emailAddress and password to see who the user is
-    const response = await this.api("/users", 'GET', null, true, {emailAddress, password}); // It stops here unless I change requiresAuth to false
+    const response = await this.api("/users", 'GET', null, true, {emailAddress, password}); 
     if (response.status === 200) {
       return response.json().then(data => data); //then return data
     }
